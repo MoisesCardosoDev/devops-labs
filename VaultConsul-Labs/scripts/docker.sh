@@ -43,6 +43,7 @@ docker_install(){
 
     pip3 install -r appV1/requirements.txt
 
+    cp scripts/vault /bin/
 
     docker-compose up -d
 }
