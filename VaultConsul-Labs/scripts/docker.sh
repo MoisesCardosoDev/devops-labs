@@ -43,7 +43,13 @@ docker_install(){
 
     pip3 install -r appV1/requirements.txt
 
-    cp scripts/vault /bin/
+    cd /tmp
+
+    wget https://releases.hashicorp.com/vault/1.5.0/vault_1.5.0_linux_amd64.zip
+
+    unzip vault_1.5.0_linux_amd64.zip
+
+    cp vault /bin/
 
     docker-compose up -d
 }
