@@ -24,28 +24,43 @@ vagrant ssh
 cd /vagrant
 ```
 
-#### Iniciar Serviços
-```
-docker-compose up -d
-```
-
 #### Listando Serviços
 ```
 docker-compose ps
 ```
 
-#### Exportando Variaveis de Ambiente
+#### Exportando Vault Host
 ```
-export VAULT_SERVER='x.x.x.x'
-export VAULT_TOKEN='s.x3cBNKobC84wB82nvu09dIMI'
-export CONSUL_SERVER='x.x.x.x'
+export VAULT_ADDR="http://localhost:8200"
 ```
 
-#### Rodando a App de Exemplo
+#### Criando Novos Tokens
+
+```
+vault token create -ttl="360h" -policy="devops-labs-policy" -display-name="devops-labs-token
+```
+
+#### Rodando o Consumer do RAbbitMQ
+```
+cd /vagrant
+
+python3 ReceiveData.py
+```
+
+#### Rodando a AppV1 de Exemplo
 ```
 cd appV1
 
 gunicorn --bind 0.0.0.0:8080 wsgi:flask_app
+```
+
+#### Fazendo o Build e Rodando a AppV2
+```
+cd appV2
+
+docker build -t dev-lab:0.0.1 .
+
+docker run -e VAULT_SERVER='' -e VAULT_TOKEN='' -e CONSUL_SERVER='' -p 8080:8080 dev-lab:0.0.1
 ```
 
 #### Parando Serviços
