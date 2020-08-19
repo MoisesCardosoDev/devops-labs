@@ -51,6 +51,8 @@ docker_install(){
 
     cp vault /bin/
 
+    cd /vagrant
+
     docker-compose up -d
 }
 
